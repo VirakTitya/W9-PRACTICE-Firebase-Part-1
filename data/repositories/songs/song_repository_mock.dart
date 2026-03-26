@@ -8,32 +8,37 @@ class SongRepositoryMock implements SongRepository {
     Song(
       id: 's1',
       title: 'Mock Song 1',
-      artist: 'Mock Artist',
+      artistId: 'artist_1',
       duration: const Duration(minutes: 2, seconds: 50),
+      imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
     ),
     Song(
       id: 's2',
       title: 'Mock Song 2',
-      artist: 'Mock Artist',
+      artistId: 'artist_1',
       duration: const Duration(minutes: 3, seconds: 20),
+      imageUrl: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a',
     ),
     Song(
       id: 's3',
       title: 'Mock Song 3',
-      artist: 'Mock Artist',
+      artistId: 'artist_2',
       duration: const Duration(minutes: 3, seconds: 20),
+      imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
     ),
     Song(
       id: 's4',
       title: 'Mock Song 4',
-      artist: 'Mock Artist',
+      artistId: 'artist_3',
       duration: const Duration(minutes: 3, seconds: 20),
+      imageUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',
     ),
     Song(
       id: 's5',
       title: 'Mock Song 5',
-      artist: 'Mock Artist',
+      artistId: 'artist_4',
       duration: const Duration(minutes: 3, seconds: 20),
+      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
     ),
   ];
 

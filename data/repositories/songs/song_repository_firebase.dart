@@ -7,22 +7,48 @@ import '../../dtos/song_dto.dart';
 import 'song_repository.dart';
 
 class SongRepositoryFirebase extends SongRepository {
-  final Uri songsUri = Uri.https('YOUR FIREBASE URL', '/songs.json');
+  final Uri songsUri = Uri.https('https://w9-firebase-p1-default-rtdb.asia-southeast1.firebasedatabase.app/', '/songs.json');
 
   @override
   Future<List<Song>> fetchSongs() async {
     final http.Response response = await http.get(songsUri);
 
     if (response.statusCode == 200) {
-      // 1 - Send the retrieved list of songs
-      List<dynamic> songJson = json.decode(response.body);
-      return songJson.map((item) => SongDto.fromJson(item)).toList();
+      // Firebase returns songs as a map keyed by song id.
+      final dynamic decoded = json.decode(response.body);
+      if (decoded == null) {
+        return [];
+      }
+
+      final Map<String, dynamic> songsJson = Map<String, dynamic>.from(decoded);
+      return songsJson.entries
+          .where((entry) => entry.value is Map)
+          .map((entry) {
+            final Map<String, dynamic> songJson =
+                Map<String, dynamic>.from(entry.value as Map);
+            return SongDto.fromJson(songJson, id: entry.key);
+          })
+          .toList();
     } else {
-      // 2- Throw expcetion if any issue
-      throw Exception('Failed to load posts');
+      throw Exception('Failed to load songs');
     }
   }
 
   @override
-  Future<Song?> fetchSongById(String id) async {}
+  Future<Song?> fetchSongById(String id) async {
+    final Uri songByIdUri = Uri.https('YOUR FIREBASE URL', '/songs/$id.json');
+    final http.Response response = await http.get(songByIdUri);
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load song with id $id');
+    }
+
+    final dynamic decoded = json.decode(response.body);
+    if (decoded == null) {
+      return null;
+    }
+
+    final Map<String, dynamic> songJson = Map<String, dynamic>.from(decoded);
+    return SongDto.fromJson(songJson, id: id);
+  }
 }

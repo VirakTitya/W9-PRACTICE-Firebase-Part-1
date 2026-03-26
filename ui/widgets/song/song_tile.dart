@@ -14,6 +14,11 @@ class SongTile extends StatelessWidget {
   final bool isPlaying;
   final VoidCallback onTap;
 
+  String get durationLabel {
+    final int minutes = (song.duration.inSeconds / 60).round();
+    return '$minutes mins';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +30,11 @@ class SongTile extends StatelessWidget {
         ),
         child: ListTile(
           onTap: onTap,
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(song.imageUrl),
+          ),
           title: Text(song.title),
+          subtitle: Text(durationLabel),
           trailing: Text(
             isPlaying ? "Playing" : "",
             style: TextStyle(color: Colors.amber),
