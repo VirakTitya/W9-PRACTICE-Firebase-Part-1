@@ -1,0 +1,7 @@
+W9-03 – Join the Song with Artist to display rich Song information
+
+Where do you want to join the song and the artist collections?  Repository? View Model? An additional Service?
+I want to join the song and the artist collections in the View Model layer because repositories stay focused per collection, and UI receives a ready-to-render joined projection.
+
+2. How do you want to store the Song additional information (artist name, artiste genre…)? 
+I want to store the song addition information in a separate composed model because it keeps the song clean and reusable.
