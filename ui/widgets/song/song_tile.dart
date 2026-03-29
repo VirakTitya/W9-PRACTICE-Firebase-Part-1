@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/songs/song.dart';
+import '../../../model/songs/song_with_artist.dart';
 
 class SongTile extends StatelessWidget {
   const SongTile({
     super.key,
-    required this.song,
+    required this.songWithArtist,
     required this.isPlaying,
     required this.onTap,
   });
 
-  final Song song;
+  final SongWithArtist songWithArtist;
   final bool isPlaying;
   final VoidCallback onTap;
 
+  String get artistInfoLabel => songWithArtist.artistLabel;
+
   String get durationLabel {
-    final int minutes = (song.duration.inSeconds / 60).round();
+    final int minutes = (songWithArtist.song.duration.inSeconds / 60).round();
     return '$minutes mins';
   }
 
@@ -31,10 +33,10 @@ class SongTile extends StatelessWidget {
         child: ListTile(
           onTap: onTap,
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(song.imageUrl),
+            backgroundImage: NetworkImage(songWithArtist.song.imageUrl),
           ),
-          title: Text(song.title),
-          subtitle: Text(durationLabel),
+          title: Text(songWithArtist.song.title),
+          subtitle: Text('$durationLabel   $artistInfoLabel'),
           trailing: Text(
             isPlaying ? "Playing" : "",
             style: TextStyle(color: Colors.amber),
