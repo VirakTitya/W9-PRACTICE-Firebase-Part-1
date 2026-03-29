@@ -7,7 +7,9 @@ import '../../dtos/song_dto.dart';
 import 'song_repository.dart';
 
 class SongRepositoryFirebase extends SongRepository {
-  final Uri songsUri = Uri.https('https://w9-firebase-p1-default-rtdb.asia-southeast1.firebasedatabase.app/', '/songs.json');
+  static const String _firebaseHost =
+      'w9-firebase-p1-default-rtdb.asia-southeast1.firebasedatabase.app';
+  final Uri songsUri = Uri.https(_firebaseHost, '/songs.json');
 
   @override
   Future<List<Song>> fetchSongs() async {
@@ -36,7 +38,7 @@ class SongRepositoryFirebase extends SongRepository {
 
   @override
   Future<Song?> fetchSongById(String id) async {
-    final Uri songByIdUri = Uri.https('YOUR FIREBASE URL', '/songs/$id.json');
+    final Uri songByIdUri = Uri.https(_firebaseHost, '/songs/$id.json');
     final http.Response response = await http.get(songByIdUri);
 
     if (response.statusCode != 200) {
